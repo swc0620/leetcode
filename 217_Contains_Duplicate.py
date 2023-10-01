@@ -1,15 +1,10 @@
-class Solution(object):
-    def containsDuplicate(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        numbers = set()
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        
+        res = set()
         for num in nums:
-            if num in numbers:
+            if num in res:
                 return True
-            else:
-                numbers.add(num)
+            res.add(num)
         
         return False
-        
