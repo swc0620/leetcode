@@ -1,12 +1,13 @@
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:   
         res = {}
         for s in strs:
-            key = ''.join(sorted(s))
-            if key in res:
-                res[key].append(s)
+            count = [0] * 26
+            for c in s:
+                count[ord(c) - ord('a')] += 1
+            if tuple(count) in res:
+                res[tuple(count)].append(s)
             else:
-                res[key] = [s]
-
-        return list(res.values())
+                res[tuple(count)] = [s]
+        
+        return res.values()
