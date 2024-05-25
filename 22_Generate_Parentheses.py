@@ -7,10 +7,11 @@ class Solution:
                 return
             if op == 0 and cl == 0:
                 ans.append(string)
-
+            
             backtracking(op-1, cl, string+"(", stack+"(")
-            if stack and stack[-1] == "(":
+            if stack:
                 backtracking(op, cl-1, string+")", stack[:-1])
-        
+            
         backtracking(n, n, "", "")
+        
         return ans
