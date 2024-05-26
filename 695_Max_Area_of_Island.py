@@ -1,33 +1,19 @@
-from collections import deque
-
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         max_area = 0
+        rows, cols = len(grid), len(grid[0])
+        visited = set()
 
-        def bfs(grid, row_idx, col_idx):
-            area = 0
-            queue = deque([(row_idx, col_idx)])
-            row_len, col_len = len(grid), len(grid[0])
-            while queue:
-                row_idx, col_idx = queue.popleft()
-                grid[row_idx][col_idx] = 0
-                area += 1
-                
-                if row_idx+1 < row_len and grid[row_idx+1][col_idx] == 1 and (row_idx+1, col_idx) not in queue:
-                    queue.append((row_idx+1, col_idx))
-                if row_idx-1 >= 0 and grid[row_idx-1][col_idx] == 1 and (row_idx-1, col_idx) not in queue:
-                    queue.append((row_idx-1, col_idx))
-                if col_idx+1 < col_len and grid[row_idx][col_idx+1] == 1 and (row_idx, col_idx+1) not in queue:
-                    queue.append((row_idx, col_idx+1))
-                if col_idx-1 >= 0 and grid[row_idx][col_idx-1] == 1 and (row_idx, col_idx-1) not in queue:
-                    queue.append((row_idx, col_idx-1))
-            return area
+        def dfs(r, c):
+            if ((r, c) in visited) or (r not in range(rows)) or (c not in range(cols)) or (grid[r][c] == 0):
+                return 0
+            visited.add((r, c))
 
-        for row_idx, row in enumerate(grid):
-            for col_idx, col in enumerate(row):
-                if grid[row_idx][col_idx] == 1:
-                    area = bfs(grid, row_idx, col_idx)
-                    max_area = max(max_area, area)
+            return 1 + dfs(r-1, c) + dfs(r+1, c) + dfs(r, c-1) + dfs(r, c+1)
 
-        return max_area
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1 and (r, c) not in visited:
+                    max_area = max(dfs(r, c), max_area)
         
+        return max_area
