@@ -12,8 +12,7 @@ class Solution:
         hashmap = {None: None}
         node = head
         while node:
-            new_node = Node(node.val, None, None)
-            hashmap[node] = new_node
+            hashmap[node] = Node(node.val, None, None)
             node = node.next
 
         node = head
