@@ -6,11 +6,9 @@
 #         self.right = right
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-
         def digTree(node):
             if not node:
                 return
-
             digTree(node.left)
             digTree(node.right)
             
@@ -20,3 +18,4 @@ class Solution:
         
         digTree(root)
         return root
+        
