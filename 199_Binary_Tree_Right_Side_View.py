@@ -12,16 +12,13 @@ class Solution:
             if not node:
                 return
             
-            nonlocal res
             if len(res) <= level:
                 res.append(node.val)
             else:
                 res[level] = node.val
-
+            
             digTree(node.left, level+1)
             digTree(node.right, level+1)
-
-            return
         
         digTree(root, 0)
         return res
