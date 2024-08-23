@@ -6,22 +6,21 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        res = 0
-        
-        def digTree(node, max_num):
-            if not node:
-                return 
+        res = 1
+
+        def digTree(node, parent):
             nonlocal res
-            if node.val >= max_num:
+            if not node:
+                return
+            if node.val >= parent:
                 res += 1
-                max_num = node.val
-            
-            digTree(node.left, max_num)
-            digTree(node.right, max_num)
-
-            return
-            
-        digTree(root, root.val)
-
+                parent = node.val
+            digTree(node.left, parent)
+            digTree(node.right, parent)
+        
+        if root.right:
+            digTree(root.right, root.val)
+        if root.left:
+            digTree(root.left, root.val)
+        
         return res
-
